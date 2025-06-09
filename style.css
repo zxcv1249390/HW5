@@ -1,0 +1,371 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1e1f20;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    position: relative;
+    margin-top: -10vh;
+    border-radius: 25px;
+    background-color: #0e0e0e;
+}
+
+#google_icon {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    max-width: 40px;
+}
+
+.login-content {
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    line-height: 1;
+    text-align: left;
+    color: white;
+    font-weight: 350;
+
+}
+
+.input-field {
+    position: relative;
+    display: flex;
+    top: 200px;
+    left: 30px;
+    width: 440px;
+    color: white;
+    overflow: hidden;
+}
+
+
+/*region input-field-left*/
+.input-field-left {
+    width: 100%;
+    margin-top: 5px; /*防止擋到電子郵件地址或電話號碼*/
+    position: relative;
+    transform: translateX(calc(-100% - 30px));
+}
+
+.input-field-left p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* 忘記電子郵件地址鏈接樣式 */
+.input-field-left a {
+    display: inline;
+    word-break: break-all;
+    color: #abc7f8;
+    text-decoration: none;
+}
+
+/* 訪客模式說明文字樣式 */
+.input-field-left p:last-of-type {
+    color: #c2c5c3;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+/*endregion*/
+
+.input-field input {
+    width: 100%;
+    height: 60px;
+    background-color: transparent;
+    border: 1px solid #c2c5c3;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 0 12px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input-field label {
+    position: absolute;
+    left: 3%;
+    top: 15px;
+    color: #c2c5c3;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    font-size: 17px;
+}
+
+/*標籤動畫效果*/
+.input-field input:focus ~ label,
+.input-field input:not(:placeholder-shown) ~ label {
+    top: 0;
+    font-size: 12px;
+    background-color: #0e0e0e;
+    padding: 0 5px;
+    transform: translateY(-50%);
+}
+
+/*點擊標籤變色*/
+.input-field input:focus {
+    border-color: #abc7f8;  /* 保持边框颜色不变 */
+    color: #ffffff;  /* 将输入文字改回原来的灰色 */
+    font-size: 16px;
+}
+
+.input-field input:focus ~ label {
+    border-color: #abc7f8;
+    color: #aac5f6;  /* 保持标签为淡蓝色 */
+}
+
+/*自動填入不要變白色*/
+.input-field input:-webkit-autofill,
+.input-field input:-webkit-autofill:hover,
+.input-field input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+    -webkit-box-shadow: 0 0 0 1000px #0e0e0e inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* 修改右側區塊初始狀態 */
+/* 修改右側區塊初始狀態 */
+.input-field-right {
+    position: absolute;
+    left: 0; /* 與左側元素重疊 */
+    top: 30%;
+    margin-top: 5px;
+    width: 100%;
+    height: 60px;
+    transform: translateX(0); /* 初始位置完全在右边 */
+}
+
+/*region show-password*/
+/* 位於 password/password_style.css */
+.input-field-right .show-password {
+    display: flex;
+    align-items: center;
+    gap: 8px;          /* 控制勾選框與文字間距 */
+}
+
+.input-field-right .show-password input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 18px;
+    height: 18px;
+    padding: 0;        /* 移除預設內距 */
+    margin: 0;         /* 移除左右外距 */
+
+    box-sizing: border-box;
+    border: 2px solid #c2c5c3;
+    border-radius: 2px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+}
+
+/* 選中狀態下的樣式 */
+.input-field-right .show-password input[type="checkbox"]:checked {
+    background-color: #aac5f6; /* 選中時的背景顏色 */
+    border-color: #aac5f6;     /* 選中時的邊框顏色 */
+}
+
+/* 使用 ::before 偽元素繪製勾選標記 */
+.input-field-right .show-password input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    left: 4px;  /* 勾選標記的水平位置 */
+    top: 0;   /* 勾選標記的垂直位置 */
+    width: 5px; /* 勾選標記 L 形的寬度 */
+    height: 10px; /* 勾選標記 L 形的高度 */
+
+    border: solid #000000; /* 勾選標記的顏色 */
+    border-width: 0 2px 2px 0; /* 透過設定右邊框和下邊框來形成 L 形 */
+
+    transform: rotate(45deg); /* 將 L 形旋轉 45 度變成勾選符號 */
+}
+
+.input-field-right .show-password p {
+    color: #ffffff; /* 勾選框文字顏色 */
+    font-size: 14px; /* 勾選框文字大小 */
+}
+/*endregion*/
+
+.input-field-left, .input-field-right {
+    transition: transform 0.4s ease;
+}
+/* 添加滑動狀態類 */
+.slide-right .input-field-left {
+    transform: translateX(0); /* 向左完全移出 */
+}
+
+.slide-right .input-field-right {
+    transform: translateX(calc(100% + 30px)); /* 移动到原位置 */
+}
+
+
+
+/*region bottom-actions*/
+.bottom-actions {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.bottom-actions .create-account {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-actions .next-step {
+    background-color: #abc7f8;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 80px;
+    text-align: center;
+}
+/*endregion*/
+
+/*region navbar*/
+.navbar {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.language-selector {
+    position: relative;
+    min-width: 150px;
+}
+
+.language-selector select {
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    padding: 8px 24px 8px 10px;
+    width: 100%;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.language-selector::after {
+    content: "▾";
+    font-family: 'Arial', 'Segoe UI Symbol', sans-serif;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9a9fa5;
+    pointer-events: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+/*endregion*/
+
+
+/*窄*/
+@media screen and (max-width: 630px) {
+    .login-container {
+        width: 100%;
+        height: 100%;
+        min-height: 550px;
+        border-radius: 0;
+        margin-top: unset;
+    }
+
+    .login-container .input-field {
+        width: calc(100% - 60px); /* 左右各30px的距离 */
+    }
+
+    .input-field-left {
+        width: 100%;
+    }
+
+    .login-container .bottom-actions {
+        bottom: unset;
+        top: 450px;
+    }
+}
+
+/*中*/
+@media screen and (min-width: 630px) and (max-width: 900px) {
+    .login-container {
+        width: 500px;
+        height: 550px;
+    }
+
+    .login-container .navbar {
+        width: 500px;
+        bottom: -50px;
+    }
+}
+
+/*寬*/
+@media screen and (min-width: 901px) {
+    .login-container {
+        width: 80%;
+        min-width: 800px;
+        max-width: 900px;
+        height: 390px;
+    }
+
+    .login-container .input-field {
+        position: absolute;
+        left: auto;
+        width: 45%;
+        right: 30px;
+        top: 100px;
+    }
+
+    .input-field-left {
+        width: 100%;
+        max-width: 440px;
+    }
+
+    .input-field-right {
+        width: 440px; /* 與左側元素相同寬度 */
+    }
+
+    .login-container .bottom-actions {
+        justify-content: flex-end;
+    }
+
+    .login-container .bottom-actions .create-account {
+        margin-right: 35px;  /* 可以根据需要调整数值大小 */
+    }
+
+    .login-container .navbar {
+        width: 100%;
+        bottom: -50px;
+    }
+}
