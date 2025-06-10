@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Google 雲端硬碟 : 登錄</title>
     <link rel="icon" href="image/google_icon.png" type="image/png">
-    <link rel="stylesheet" href="password_style.css">
+    <link rel="stylesheet" href="slide-right.css">
+
 </head>
 <body>
 <div class="login-container">
@@ -24,7 +25,7 @@
                 <a  href="clown.html" style = "color: #abc7f8; font-size: 14px; text-decoration: none; ">忘記電子郵件地址？</a>
             </p>
             <br>
-            <p style="font-size: 14px; color: #c2c5c3;">如果這不是你的電腦，請使用訪客模式以私密方式登入。
+            <p style="font-size: 14px;; color: #c2c5c3;">如果這不是你的電腦，請使用訪客模式以私密方式登入。
                 <a  href="clown.html" style = "color: #abc7f8; font-size: 14px; text-decoration: none; "> 進一步瞭解如何使用訪客模式</a>
             </p>
         </div>
@@ -42,7 +43,7 @@
     </div>
 
     <div class="bottom-actions">
-        <p class="create-account"><a href="loading.html" style="color: #abc7f8; font-size: 14px; text-decoration: none;">試試其他方法</a></p>
+        <p class="create-account"><a href="clown.html" style="color: #abc7f8; font-size: 14px; text-decoration: none;">試試其他方法</a></p>
         <button class="next-step"><a href="clown.html" style="color: #254480; text-decoration: none;">下一步</a></button>
     </div>
     <div class="navbar" >
@@ -52,9 +53,9 @@
             </select>
         </div>
         <div class="nav-links">
-            <a href="loading.html">說明</a>
-            <a href="loading.html">隱私權設定</a>
-            <a href="loading.html">條款</a>
+            <a href="clown.html">說明</a>
+            <a href="clown.html">隱私權設定</a>
+            <a href="clown.html">條款</a>
         </div>
     </div>
 </div>
@@ -62,49 +63,23 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // 密码相关元素
-        const passwordInput = document.getElementById('password');
-        const nullPasswordMsg = document.querySelector('.null-password');
-        const nextButton = document.querySelector('.next-step');
-        const showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
+        // 获取邮箱链接元素
         const emailLink = document.querySelector('.login-content a');
 
-        // 获取保存的邮箱并显示在链接中
+        // 从会话存储中获取邮箱并显示在链接文本中
         const userEmail = sessionStorage.getItem('userEmail');
-        if (userEmail) {
+        if (userEmail && emailLink) {
             emailLink.textContent = userEmail;
         }
 
-        // 初始隐藏错误消息
+        // 1. 密碼驗證相關功能
+        const passwordInput = document.getElementById('password');
+        const nullPasswordMsg = document.querySelector('.null-password');
+        const nextButton = document.querySelector('.next-step');
+        const container = document.querySelector('.input-field');
+
         nullPasswordMsg.style.display = 'none';
 
-        // 设置当前页面标记
-        sessionStorage.setItem('currentPage', 'password');
-
-        // 检查是否是从index页面过来的
-        if (sessionStorage.getItem('fromIndexPage') === 'true') {
-            sessionStorage.removeItem('fromIndexPage');
-            // 设置返回标记
-            sessionStorage.setItem('fromPasswordPage', 'true');
-        }
-
-        // 添加历史记录点，用于监听返回按钮
-        history.pushState({page: 'password'}, 'password', null);
-
-        // 监听浏览器返回按钮事件
-        window.addEventListener('popstate', function(event) {
-            // 检查当前页面标记
-            if (sessionStorage.getItem('currentPage') === 'password') {
-                // 阻止默认返回行为
-                history.pushState(null, null, document.URL);
-                // 重置标记
-                sessionStorage.removeItem('currentPage');
-                // 跳转到slide-left.html
-                window.location.href = 'slide-left.html';
-            }
-        });
-
-        // 密码验证
         nextButton.addEventListener('click', function(e) {
             e.preventDefault();
             if (!passwordInput.value.trim()) {
@@ -113,12 +88,10 @@
             } else {
                 nullPasswordMsg.style.display = 'none';
                 passwordInput.classList.remove('error');
-                // 登录成功后的逻辑
-                window.location.href = 'clown.html';
+                // 在此處加入後續邏輯
             }
         });
 
-        // 回车键提交
         passwordInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -126,10 +99,16 @@
             }
         });
 
-        // 显示/隐藏密码功能
-        showPasswordCheckbox.addEventListener('change', function() {
-            passwordInput.type = this.checked ? 'text' : 'password';
-        });
+        // 2. 自動右滑動畫並導向密碼頁
+        setTimeout(() => {
+            // 添加右滑類觸發動畫
+            container.classList.add('slide-right');
+
+            // 等待動畫完成後跳轉頁面
+            setTimeout(() => {
+                location.href = 'password.html';
+            }, 400); // 與CSS中的transition時間一致
+        }, 100); // 短暫延遲確保DOM完全載入
     });
 </script>
 </body>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google 雲端硬碟 : 登錄</title>
+    <link rel="icon" href="image/google_icon.png" type="image/png">
+    <link rel="stylesheet" href="slide-left.css">
+</head>
+<body>
+<div class="login-container">
+    <img src="image/google_icon.png" alt="google_icon" id="google_icon">
+    <div class="login-content">
+        <h1>登入</h1>
+        <p>繼續使用 Google 雲端硬碟</p>
+    </div>
+    <div class="input-field">
+        <div class="input-field-left">
+            <input type="email" id="email" required placeholder="">
+            <label for="email">電子郵件地址或電話號碼</label>
+            <p class="null-email">請輸入電子郵件地址或電話號碼</p>
+            <p>
+                <a href="clown.html" class="link">忘記電子郵件地址？</a>
+            </p>
+            <p class="info"  style="margin-top: 50px; font-size: 14px;">
+                如果這不是你的電腦，請使用訪客模式以私密方式登入。
+                <a href="clown.html" class="link">進一步瞭解如何使用訪客模式</a>
+            </p>
+        </div>
+        <div class="input-field-right">
+            <input type="password" id="password" required placeholder="">
+            <label for="password">輸入你的密碼</label>
+            <div class="show-password">
+                <input type="checkbox" id="showPasswordCheckbox">
+                <p>顯示密碼</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-actions">
+        <p class="create-account"><a href="clown.html" class="link">建立帳戶</a></p>
+        <button class="next-step">下一步</button>
+    </div>
+    <div class="navbar">
+        <div class="language-selector">
+            <select>
+                <option selected>繁體中文</option>
+            </select>
+        </div>
+        <div class="nav-links">
+            <a href="clown.html" class="link">說明</a>
+            <a href="clown.html" class="link">隱私權設定</a>
+            <a href="clown.html" class="link">條款</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.querySelector('.input-field');
+        const emailInput = document.getElementById('email');
+        const nullEmailMsg = document.querySelector('.null-email');
+        const nextButton = document.querySelector('.next-step');
+
+        // 检查sessionStorage中是否有保存的邮箱并回填
+        const savedEmail = sessionStorage.getItem('userEmail');
+        if (savedEmail && emailInput) {
+            emailInput.value = savedEmail;
+            // 当输入框有值时应用样式，使标签上浮
+            if (emailInput.value.trim() !== '') {
+                emailInput.classList.add('filled');
+            }
+        }
+
+        if (nullEmailMsg) {
+            nullEmailMsg.style.display = 'none';
+        }
+
+        // 短暫延遲確保DOM和CSS完全加載
+        setTimeout(() => {
+            // 添加右滑動畫類
+            container.classList.add('slide-right');
+
+            // 動畫結束後跳轉到index.html
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 400); // 等待動畫完成 (與CSS中的transition時間相匹配)
+        }, 100);
+
+        if (nextButton && emailInput) {
+            nextButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                // 其他邏輯...
+            });
+        }
+    });
+</script>
+</body>
+</html>

