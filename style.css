@@ -64,6 +64,7 @@ body {
     word-break: break-all;
     color: #abc7f8;
     text-decoration: none;
+    font-size: 14px;
 }
 
 /* 訪客模式說明文字樣式 */
@@ -154,7 +155,6 @@ body {
     color: #eab6b4;
 }
 /*endregion*/
-
 
 /* 修改右側區塊初始狀態 */
 .input-field-right {
@@ -252,6 +252,14 @@ body {
     margin: 0;
     display: flex;
     align-items: center;
+}
+
+.bottom-actions a{
+    display: inline;
+    word-break: break-all;
+    color: #abc7f8;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 .bottom-actions .next-step {

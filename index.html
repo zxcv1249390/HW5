@@ -1,111 +1,178 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Google 雲端硬碟 : 登錄</title>
-    <link rel="stylesheet" href="style.css">
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Google 雲端硬碟 : 登錄</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+        <div class="login-container">
+            <img src="image/google_icon.png" alt="google_icon" id="google_icon">
+            <div class="login-content">
+                <h1>登入</h1>
+                <p>繼續使用 Google 雲端硬碟</p>
+            </div>
+            <div class="input-field">
+                <div class="input-field-left">
+                    <input type="email" id="email" required autofocus placeholder="">
+                    <label for="email">電子郵件地址或電話號碼</label>
+                    <p class="null-email">請輸入電子郵件地址或電話號碼</p>
+                    <p>
+                        <a href="clown.html" class="link">忘記電子郵件地址？</a>
+                    </p>
+                    <p class="info"  style="margin-top: 50px;">
+                        如果這不是你的電腦，請使用訪客模式以私密方式登入。
+                        <a href="clown.html" class="link">進一步瞭解如何使用訪客模式</a>
+                    </p>
+                </div>
+                <div class="input-field-right">
+                    <input type="password" id="password" required placeholder="">
+                    <label for="password">輸入你的密碼</label>
+                    <div class="show-password">
+                        <input type="checkbox" id="showPasswordCheckbox">
+                        <p>顯示密碼</p>
+                    </div>
+                </div>
+            </div>
 
-</head>
-<body>
-<div class="login-container">
-    <img src="image/google_icon.png" alt="google_icon" id = "google_icon">
-    <div class="login-content">
-        <h1 style="font-weight : 350;">登入</h1>
-        <p>繼續使用 Google 雲端硬碟</p>
-    </div>
-    <div class="input-field">
-        <div class="input-field-left">
-            <input type="email" id="email" required autofocus placeholder="">
-            <label for="email">電子郵件地址或電話號碼</label>
-            <p class="null-email" >請輸入電子郵件地址或電話號碼</p>
-            <p>
-                <a  href="clown.html" style = "color: #abc7f8; font-size: 14px; text-decoration: none; ">忘記電子郵件地址？</a>
-            </p>
-            <br>
-            <p style="font-size: 14px; color: #c2c5c3;">如果這不是你的電腦，請使用訪客模式以私密方式登入。
-                <a  href="clown.html" style = "color: #abc7f8; font-size: 14px; text-decoration: none; "> 進一步瞭解如何使用訪客模式</a>
-            </p>
-        </div>
-        <div class="input-field-right">
-            <input type="password" id="password" required autofocus placeholder="">
-            <label for="password">輸入你的密碼</label>
-            <div class="show-password">
-                <input type="checkbox" id="showPasswordCheckbox" style="margin-right: 5px;">
-                <p>顯示密碼</p>
+            <div class="bottom-actions">
+                <p class="create-account"><a href="clown.html" class="link">建立帳戶</a></p>
+                <button class="next-step">下一步</button>
+            </div>
+            <div class="navbar">
+                <div class="language-selector">
+                    <select>
+                        <option selected>繁體中文</option>
+                    </select>
+                </div>
+                <div class="nav-links">
+                    <a href="clown.html" class="link">說明</a>
+                    <a href="clown.html" class="link">隱私權設定</a>
+                    <a href="clown.html" class="link">條款</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="bottom-actions">
-        <p class="create-account"><a href="clown.html" style="color: #abc7f8; font-size: 14px; text-decoration: none;">建立帳戶</a></p>
-        <button class="next-step"><a href="password.html" style="color: #254480; text-decoration: none;">下一步</a></button>
-    </div>
-    <div class="navbar" >
-        <div class="language-selector">
-            <select >
-                <option selected>繁體中文</option>
-            </select>
-        </div>
-        <div class="nav-links">
-            <a href="clown.html">說明</a>
-            <a href="clown.html">隱私權設定</a>
-            <a href="clown.html">條款</a>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.querySelector('.input-field');
-        window.requestAnimationFrame(() => {
-            container.classList.add('slide-right');
-        });
-
-        // 清空localStorage中存储的邮箱记录
-        localStorage.removeItem('userEmail');
-
-        const nextButton = document.querySelector('.next-step');
-        nextButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            const emailInput = document.querySelector('#email');
-            const email = emailInput.value;
-            const enterEmailMsg = document.querySelector('.null-email');
-
-            if (!email.trim()) {
-                // 如果邮箱为空，显示错误提示
-                enterEmailMsg.style.display = 'block';
-                emailInput.classList.add('error');
-                return;
+        <script>
+            // 輔助函數，用於準備離開 index.html 時設置或清除標記
+            function prepareToLeaveIndex(isGoingToPassword) {
+                if (!isGoingToPassword) {
+                    localStorage.setItem('clearEmailOnNextIndexLoad', 'true');
+                } else {
+                    localStorage.removeItem('clearEmailOnNextIndexLoad');
+                }
             }
 
-            // 邮箱不为空，保存并跳转
-            enterEmailMsg.style.display = 'none';
-            emailInput.classList.remove('error');
-            localStorage.setItem('userEmail', email);
-            document.querySelector('.input-field').classList.add('slide-left');
-            setTimeout(() => window.location.href = 'password.html', 400);
-        });
+            document.addEventListener('DOMContentLoaded', function() {
+                const container = document.querySelector('.input-field');
+                const emailInput = document.querySelector('#email');
 
-        // 按下Enter时也触发下一步
-        document.querySelector('#email').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                nextButton.click();
-            }
-        });
-    });
+                const wasBfcacheReload = sessionStorage.getItem('isBfcacheReload') === 'true';
+                sessionStorage.removeItem('isBfcacheReload'); // 使用後立即清除標記
 
-    window.addEventListener('pageshow', function(event) {
-        const nav = performance.getEntriesByType('navigation');
-        const isBack = nav.length && nav[0].type === 'back_forward';
-        if (event.persisted || isBack) {
-            location.reload();
-        }
-    });
-</script>
-</body>
-</html>
+                let isUserInitiatedPageRefresh = false;
+                const navigationEntries = performance.getEntriesByType("navigation");
+                if (navigationEntries && navigationEntries.length > 0) {
+                    // 判斷是否為使用者在 index.html 上直接刷新 (F5, Ctrl+R, etc.)
+                    // 條件：導航類型為 'reload' 且不是由 bfcache 恢復後觸發的 reload
+                    if (navigationEntries[0].type === 'reload' && !wasBfcacheReload) {
+                        isUserInitiatedPageRefresh = true;
+                    }
+                } else if (performance.navigation && performance.navigation.type === performance.navigation.TYPE_RELOAD && !wasBfcacheReload) {
+                    // 備用方案，適用於不支援 PerformanceNavigationTiming 的舊瀏覽器
+                    isUserInitiatedPageRefresh = true;
+                }
+
+                if (isUserInitiatedPageRefresh) {
+                    // 如果是使用者在 index.html 內部進行的重新載入
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('clearEmailOnNextIndexLoad'); // 同時清除此標記
+                    emailInput.value = '';
+                } else {
+                    // 正常流程：從其他頁面導航過來，或 bfcache 恢復後的 reload
+                    const shouldClearEmail = localStorage.getItem('clearEmailOnNextIndexLoad');
+                    if (shouldClearEmail === 'true') {
+                        localStorage.removeItem('userEmail');
+                        emailInput.value = '';
+                        localStorage.removeItem('clearEmailOnNextIndexLoad'); // 使用後清除標記
+                    } else {
+                        // 若非標記清除，則嘗試從 localStorage 回填 email
+                        // 這適用於從 password.html 返回且 password.html 有 email 記錄的情況
+                        const savedEmail = localStorage.getItem('userEmail');
+                        if (savedEmail) {
+                            emailInput.value = savedEmail;
+                        } else {
+                            emailInput.value = ''; // 確保若無記錄則為空
+                        }
+                    }
+                }
+
+                // 強制聚焦到 email 欄位
+                emailInput.focus();
+
+                // 初始动画
+                container.classList.remove('slide-right');
+                window.requestAnimationFrame(() => {
+                    container.classList.add('slide-right');
+                });
+
+                const nextButton = document.querySelector('.next-step');
+                nextButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const email = emailInput.value;
+                    const enterEmailMsg = document.querySelector('.null-email');
+
+                    if (!email.trim()) {
+                        enterEmailMsg.style.display = 'block';
+                        emailInput.classList.add('error');
+                        return;
+                    }
+
+                    enterEmailMsg.style.display = 'none';
+                    emailInput.classList.remove('error');
+                    localStorage.setItem('userEmail', email); // 保存 email 到 localStorage
+                    prepareToLeaveIndex(true); // 標記我們要去 password.html
+                    document.querySelector('.input-field').classList.add('slide-left');
+                    setTimeout(() => window.location.href = 'password.html', 400);
+                });
+
+                emailInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        nextButton.click();
+                    }
+                });
+
+                // 為頁面中其他會導致跳轉的連結加上事件監聽器
+                document.querySelectorAll('a[href]').forEach(link => {
+                    if (!link.closest('.next-step')) { // 排除「下一步」按鈕中的連結
+                        let isLinkToPassword = false;
+                        try {
+                            isLinkToPassword = new URL(link.href, window.location.origin).pathname.endsWith('/password.html');
+                        } catch (err) {
+                            // 忽略無效的 URL
+                        }
+
+                        if (!isLinkToPassword) {
+                            link.addEventListener('click', function() {
+                                prepareToLeaveIndex(false); // 標記我們要去「其他頁面」
+                            });
+                        }
+                    }
+                });
+            });
+
+            window.addEventListener('pageshow', function(event) {
+                // 如果頁面是從 bfcache (往返快取) 中載入的
+                if (event.persisted) {
+                    // 設置一個 sessionStorage 標記，以便 DOMContentLoaded 知道這次 reload 是由 bfcache 恢復觸發的
+                    sessionStorage.setItem('isBfcacheReload', 'true');
+                    // 重新載入頁面，這樣 DOMContentLoaded 會再次觸發，相關邏輯會執行
+                    location.reload();
+                }
+            });
+        </script>
+        </body>
+        </html>
